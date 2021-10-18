@@ -63,10 +63,10 @@ class Game:
                 else:
                     print('Vārds ievadīts nepareizi!')
             if self.dzivibas == 0:
-                print('Spēle zaudēta!')
+                print('Spēle zaudēta! Pareizais vārds bija: ' + self.minamais_vards)
                 break    
             print('Minētie vārdi: ' + str(self.minetie_vardi))
-            print('Minētie burti: ' + str(self.minetie_burti))
+            print('Minētie burti: ' + str(self.minetie_burti) + '\n')
             if self.progress == list(self.minamais_vards):
                 self.uzminets = True
                 print('Vārds atminēts!')
