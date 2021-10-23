@@ -10,47 +10,54 @@ class Game:
 
     def play(self):
 
-        ievade = ''
-
-        self.minetie_burti.append(' ')
+        #self.minetie_burti.append(' ')
+        print('Minamais vārds ir ' + ''.join(self.progress) + f' un tā garums ir {len(self.minamais_vards)} burti. Tev ir {self.dzivibas} dzīvības. Lai veicas!\n')
 
         while self.dzivibas > 0 and self.uzminets == False:
+            
             burts_atrasts = False
-            burts_minets = False
-            vards_minets = False
+            #burts_minets = False
+            #vards_minets = False
             ievade = input('Ievadi minamo burtu vai vārdu: ').upper()
             if len(ievade) == 0:
                 print('Nekas netika ievadīts, mēģini vēlreiz!')
                 continue
             elif len(ievade) == 1: #ir ievadīts 1 simbols
                 if ievade.isalpha(): #ir ievadīts burts (pēc satura)
-                    for x in self.minetie_burti:
-                        if ievade == x:
-                            burts_minets = True
-                            break
-                    if burts_minets:
+                    #Vecais cikls aizstāts ar 'if ievade in self.minetie_burti'.
+                    #for x in self.minetie_burti:
+                    #    if ievade == x:
+                    #        burts_minets = True
+                    #        break
+                    #if burts_minets:
+                    #    print('Burts ir jau minēts, mēģini vēlreiz!')
+                    if ievade in self.minetie_burti:
                         print('Burts ir jau minēts, mēģini vēlreiz!')
                     else:
-                        for index, y in enumerate(self.minamais_vards):
-                            if ievade == y:
+                        for index, burts in enumerate(self.minamais_vards):
+                            if ievade == burts:
                                 burts_atrasts = True
                                 self.progress[index] = ievade
                         if burts_atrasts:
-                            print('Burts ir šajā vārdā: ' + str(self.progress))
+                            print('Burts ir šajā vārdā!')
                         else:
                             self.dzivibas -= 1
-                            print('Šī burta vārdā nav! Atlikušas ' + str(self.dzivibas) + ' dzīvības')
+                            #print('Šī burta vārdā nav! Atlikušas ' + str(self.dzivibas) + ' dzīvības.')
+                            print(f'Šī burta vārdā nav! Atlikušas {self.dzivibas} dzīvības.')
                         self.minetie_burti.append(ievade)
                 else:
                     print('Nav ievadīts burts!')
             else: #ir ievadīti vairāki simboli
 
                 if len(self.minamais_vards) == len(ievade) and ievade.isalpha():
-                    for z in self.minetie_vardi:
-                        if ievade == z:
-                            vards_minets = True
-                            break
-                    if vards_minets:
+                    #Vecais cikls aizstāts ar 'if ievade in self.minetie_vardi'.
+                    #for z in self.minetie_vardi:
+                    #    if ievade == z:
+                    #        vards_minets = True
+                    #        break
+                    #if vards_minets:
+                    #    print('Vārds ir jau minēts, mēģini vēlreiz!')
+                    if ievade in self.minetie_vardi:
                         print('Vārds ir jau minēts, mēģini vēlreiz!')
                     else:
                         if ievade == self.minamais_vards:
@@ -58,18 +65,19 @@ class Game:
                             print('Vārds atminēts!')
                         else:
                             self.dzivibas -= 1
-                            print('Šis nav pareizais vārds! Atlikušas ' + str(self.dzivibas) + ' dzīvības')  
+                            #print('Šis nav pareizais vārds! Atlikušas ' + str(self.dzivibas) + ' dzīvības.')
+                            print(f'Šis nav pareizais vārds! Atlikušas {self.dzivibas} dzīvības.') 
                         self.minetie_vardi.append(ievade)
                 else:
                     print('Vārds ievadīts nepareizi!')
             if self.dzivibas == 0:
-                print('Spēle zaudēta! Pareizais vārds bija: ' + self.minamais_vards)
+                #print('Spēle zaudēta! Pareizais vārds bija: ' + self.minamais_vards)
+                print(f'Spēle zaudēta! Pareizais vārds bija {self.minamais_vards} !')
                 break    
-            print('Minētie vārdi: ' + str(self.minetie_vardi))
-            print('Minētie burti: ' + str(self.minetie_burti) + '\n')
+            print('Tavs progress: ' + ''.join(self.progress))  
+            print('Minētie vārdi: ' + ', '.join(self.minetie_vardi))           
+            print('Minētie burti: ' + ', '.join(self.minetie_burti) + '\n')
             if self.progress == list(self.minamais_vards):
                 self.uzminets = True
                 print('Vārds atminēts!')
                 break
-            else:
-                pass
