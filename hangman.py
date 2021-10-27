@@ -1,5 +1,5 @@
 from gameplay.game2 import Game
-from gameplay.difficulty import check_difficulty
+from scripts.difficulty import check_difficulty
 from random import shuffle
 with open('data/words.txt', 'r', encoding = 'utf-8') as file:
     words = file.read()
