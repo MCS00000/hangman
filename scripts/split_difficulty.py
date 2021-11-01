@@ -4,7 +4,6 @@ easy_words = []
 medium_words = []
 hard_words = []
 
-
 with open('../data/words.txt', 'r', encoding = 'utf-8') as file:
     words = file.read()
 words = words.split('\n')

@@ -1,7 +1,9 @@
 
 def check_difficulty(word):
 
-    #factor 1 - check repeated consonants/vowels
+    #========================
+    #Factor 1 - check repeated consonants/vowels
+    #========================
 
     vowels = ('A', 'Ā', 'E', 'Ē', 'I', 'Ī', 'U', 'Ū', 'O')
 
@@ -30,11 +32,15 @@ def check_difficulty(word):
     repeated_vowels = repeated_letters('11') * 0.5
     repeated_consonants = repeated_letters('22')
 
-    #factor 2 - check word length
+    #========================
+    #Factor 2 - check word length
+    #========================
 
     word_length = len(word) * 0.3
 
-    #factor 3 - check letter frequency
+    #========================
+    #Factor 3 - check letter frequency
+    #========================
 
     frequency_table = {
         'A' : 0.1178,
@@ -80,6 +86,33 @@ def check_difficulty(word):
     #normalize the frequency using interpolation to assign values from 1 to 10
     letter_frequency = 1 + (letter_frequency - 40) * (10 - 1) / (1500 - 40) # 40 ir novērotā MIN vērtība, 1500 ir novērotā MAX vērtība
     #print(word + f': {letter_frequency}')
+
+    #========================
+    #Factor 4 - check word frequency
+    #========================
+
+    #import wikipedia
+    #wikipedia.set_lang('lv')
+    #wikipedia_text = wikipedia.page('America').content.split(' ')
+    #the_word = 'Amerika'
+    #word_frequency = 0
+    #for any_word in wikipedia_text:
+    #    if any_word == the_word:
+    #        word_frequency += 1
+    #print(f'Word {the_word} frequency: {word_frequency}')
+
+    #import requests
+    #import re
+    #from bs4 import BeautifulSoup
+
+    #urls = ['https://lv.wikipedia.org/wiki/Special:Random']
+    #the_word = 'and'
+    #for url in urls:
+    #    print(url)
+    #    r = requests.get(url, allow_redirects=False)
+    #    soup = BeautifulSoup(r.text, 'html.parser')
+    #    word_frequency = soup.find_all(text = re.compile(the_word))
+    #    print(len(word_frequency))
 
     #calculate the total difficulty score
     difficulty_score = repeated_vowels + repeated_consonants + word_length + letter_frequency
