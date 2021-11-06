@@ -1,6 +1,7 @@
 from gameplay.game2 import Game
 from scripts.difficulty import check_difficulty
 from random import shuffle
+from scripts.timer import countdown
 
 print('\nSveiciens karātavās!')
 
@@ -28,5 +29,7 @@ while True:
     #print(f'Vārda grūtības indekss: {difficulty_score}')
     game = Game(word)
     game.play()
+    t = 5
+    countdown(int(t))
 
 

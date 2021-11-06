@@ -1,3 +1,5 @@
+from scripts.word_hint import get_hint
+
 class Game:
     def __init__(self, vards):
         self.minamais_vards = vards.upper()
@@ -7,7 +9,6 @@ class Game:
         self.minetie_burti = []
         self.minetie_vardi= []
 
-
     def play(self):
 
         print('Minamais vārds ir ' + ''.join(self.progress) + f' un tā garums ir {len(self.minamais_vards)} burti. Tev ir {self.dzivibas} dzīvības. Lai veicas!\n')
@@ -15,7 +16,7 @@ class Game:
         while self.dzivibas > 0 and self.uzminets == False:
             
             burts_atrasts = False
-            ievade = input('Ievadi minamo burtu vai vārdu: ').upper()
+            ievade = input('Ievadi minamo burtu vai vārdu (ievadi HELP, ja vēlies maksas padomu): ').upper()
             if len(ievade) == 0:
                 print('Nekas netika ievadīts, mēģini vēlreiz!')
                 continue
@@ -37,14 +38,18 @@ class Game:
                 else:
                     print('Nav ievadīts burts!')
             else: #ir ievadīti vairāki simboli
-
-                if len(self.minamais_vards) == len(ievade) and ievade.isalpha():
+                if ievade == 'HELP':
+                    self.dzivibas -= 1
+                    print(f'Iztērēta dzīvība par padomu! Atlikušas {self.dzivibas} dzīvības.')
+                    get_hint(self.minamais_vards.lower())
+                elif len(self.minamais_vards) == len(ievade) and ievade.isalpha():
                     if ievade in self.minetie_vardi:
                         print('Vārds ir jau minēts, mēģini vēlreiz!')
                     else:
                         if ievade == self.minamais_vards:
                             self.uzminets = True
                             print('Vārds atminēts!')
+                            import rickroll
                         else:
                             self.dzivibas -= 1
                             print(f'Šis nav pareizais vārds! Atlikušas {self.dzivibas} dzīvības.') 
@@ -60,4 +65,5 @@ class Game:
             if self.progress == list(self.minamais_vards):
                 self.uzminets = True
                 print('Vārds atminēts!')
+                import rickroll
                 break
