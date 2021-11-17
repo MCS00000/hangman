@@ -1,3 +1,8 @@
+"""No moduļa difficulty importē funkciju check_difficulty, kas sadala failos minamos vārdus pēc norādītās grūtības pakāpes.
+Ir definētas trīs grūtības pakāpes - easy_words, medium_words, hard_words.
+Vārdi tiek ielasīti no words.txt un izmantojot split metodi sadalīti sarakstos.
+Izmantojot pop metodi vārdi tiek iedalīti atbilstošā sarakstā izmantojot mainīgo difficulty_score.
+"""
 from difficulty import check_difficulty
 
 easy_words = []

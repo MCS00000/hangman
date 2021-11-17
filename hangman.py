@@ -1,3 +1,9 @@
+""" 
+No Game2 moduļa tiek importēti galvenie spēles noteikumi un atribūti caur klasi Game. 
+Izmantojot standarta bibliotēkas 'random' moduļa funkciju 'shuffle', sajaucam datu struktūru.
+Funkcija countdown, no moduļa timer ir taimeris.
+"""
+
 from gameplay.game2 import Game
 from random import shuffle
 from scripts.timer import countdown

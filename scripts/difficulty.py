@@ -1,6 +1,28 @@
+"""Šis modulis aprēķina vārda grūtības pakāpi.
 
+Modulis saņemtam vārdam aprēķina grūtības pakāpi, izmantojot vairākus parametriskus faktorus.
+Tas sastāv no vienas funkcijas: check_difficulty, ko eksportē uz moduli split_difficulty.
+Modulis saņemvārdu analizē uzreiz un atgriež rezultātu.
+
+    Tipisks pielietojuma piemērs:
+
+    word_to_check = 'random_word'
+    check_difficulty(word_to_check)
+"""
 def check_difficulty(word):
+    """
+    Funkcija saskaita vārda grūtības līmeni.
 
+    Vārda grūtības līmenis tiek saskaitīts izmantojot vairākus svērtus kritērijus.
+    Rezultātā katram vārdam tiek piešķirts skaitlis, kas raksturo to grūtību un ļauj to ievietot kādā no vārdu uzglabāšanas failiem atkarībā no tā grūtības pakāpes.
+
+    Args:
+        word: Vārds, kura grūtums tiek pārbaudīts
+    Returns: 
+        Vārda grūtības pakāpe
+    Raises:
+        Nav izņēmuma paziņojumu.
+    """
     #========================
     #Factor 1 - check repeated consonants/vowels
     #========================
@@ -18,6 +40,9 @@ def check_difficulty(word):
             changed_word = changed_word.replace(letter, str(2))
 
     def repeated_letters(letters):
+        """Funkcija analizē vārdus izmantojot mainīgo, kas definē burtu. 
+        Funkcija parāda, cik reižu burts atkārtojas vārdā.
+        """
         i = 0
         repeats = 0
         while i <= len(changed_word):
