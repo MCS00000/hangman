@@ -5,6 +5,7 @@ kas uz tiem ir balstīti. Tiek importēts get_hint kā papildu funkcija spēlē.
 """
 
 from scripts.word_hint import get_hint
+from scripts.clear_screen import clear
 
 class Game:
     """Klase Game satur spēles objektu kopumu.
@@ -17,13 +18,14 @@ class Game:
         minetie_burti: Saraksts ar spēles partijā minētajiem burtiem
         minetie_vardi: Saraksts ar spēles partijā minētajiem vārdiem
     """
-    def __init__(self, vards):
+    def __init__(self, vards, valoda):
         self.minamais_vards = vards.upper()
         self.progress = list(len(self.minamais_vards) * '-')
         self.dzivibas = 6
         self.uzminets = False
         self.minetie_burti = []
         self.minetie_vardi= []
+        self.valoda = valoda
 
     def play(self):
         """Palaiž spēles ciklus, kas pieņem lietotāja ievadi.
@@ -41,12 +43,19 @@ class Game:
             Nav izņēmuma paziņojumu.   
         """
 
-        print('Minamais vārds ir ' + ''.join(self.progress) + f' un tā garums ir {len(self.minamais_vards)} burti. Tev ir {self.dzivibas} dzīvības. Lai veicas!\n')
+        print('Minamais vārds ir ' + ''.join(self.progress) + f' un tā garums ir {len(self.minamais_vards)} burti. Tev ir {self.dzivibas} dzīvības. Lai veicas!')
 
         while self.dzivibas > 0 and self.uzminets == False:
-            
+            print('\nTavs progress: ' + ''.join(self.progress))
+            print('Atlikušās dzīvības: ' + "\u2665 " * self.dzivibas)
+            print('Minētie vārdi: ' + ', '.join(self.minetie_vardi))           
+            print('Minētie burti: ' + ', '.join(self.minetie_burti) + '\n')
+            print('Papildus komandas:')
+            print('    HELP! - ja vēlies maksas padomu')
+            print('    STOP! - ja vēlies pamest spēli pavisam\n')
             burts_atrasts = False
-            ievade = input('Ievadi minamo burtu vai vārdu (ievadi HELP, ja vēlies maksas padomu): ').upper()
+            ievade = input('Ievadi minamo burtu vai vārdu (vai papildus komandu): ').upper()
+            clear()
             if len(ievade) == 0:
                 print('Nekas netika ievadīts, mēģini vēlreiz!')
                 continue
@@ -63,15 +72,18 @@ class Game:
                             print('Burts ir šajā vārdā!')
                         else:
                             self.dzivibas -= 1
-                            print(f'Šī burta vārdā nav! Atlikušas {self.dzivibas} dzīvības.')
+                            print(f'Šī burta vārdā nav - zaudēta dzīvība!')
                         self.minetie_burti.append(ievade)
                 else:
                     print('Nav ievadīts burts!')
             else: #ir ievadīti vairāki simboli
-                if ievade == 'HELP':
+                if ievade == 'HELP!':
                     self.dzivibas -= 1
-                    print(f'Iztērēta dzīvība par padomu! Atlikušas {self.dzivibas} dzīvības.')
-                    get_hint(self.minamais_vards.lower())
+                    print('Iztērēta dzīvība par padomu!')
+                    get_hint(self.minamais_vards.lower(), self.valoda)
+                elif ievade == 'STOP!':
+                    print('Spēle pārtraukta!')
+                    raise SystemExit
                 elif len(self.minamais_vards) == len(ievade) and ievade.isalpha():
                     if ievade in self.minetie_vardi:
                         print('Vārds ir jau minēts, mēģini vēlreiz!')
@@ -82,16 +94,13 @@ class Game:
                             import rickroll
                         else:
                             self.dzivibas -= 1
-                            print(f'Šis nav pareizais vārds! Atlikušas {self.dzivibas} dzīvības.') 
+                            print(f'Šis nav pareizais vārds - zaudēta dzīvība!') 
                         self.minetie_vardi.append(ievade)
                 else:
                     print('Vārds ievadīts nepareizi!')
             if self.dzivibas == 0:
-                print(f'Spēle zaudēta! Pareizais vārds bija {self.minamais_vards} !')
+                print(f'Spēle zaudēta! Pareizais vārds bija {self.minamais_vards}!')
                 break    
-            print('Tavs progress: ' + ''.join(self.progress))  
-            print('Minētie vārdi: ' + ', '.join(self.minetie_vardi))           
-            print('Minētie burti: ' + ', '.join(self.minetie_burti) + '\n')
             if self.progress == list(self.minamais_vards):
                 self.uzminets = True
                 print('Vārds atminēts!')
